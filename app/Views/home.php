@@ -1,3 +1,10 @@
+<?php
+use Carbon\Carbon;
+
+Carbon::setLocale('id'); // Set locale to Indonesian
+?>
+
+
 <?= $this->extend('layout/page_layout') ?>
 
 <?= $this->section('content') ?>
@@ -42,35 +49,17 @@
 <div class="my-16 w-full bg-yellow-300 p-8">
     <div class="container mx-auto">
     <h1 class="uppercase font-bold text-3xl">Tim</h1>
-    <div class="grid grid-cols-4 gap-8 py-10">
-    <div class="flex flex-col items-center overflow-visible bg-white p-6 rounded-lg shadow-lg">
-            <img class="rounded-full w-32 h-32 -mt-16" src="<?= base_url('assets/image/person.jpg') ?>" alt="Profile Photo">
-            <div class="text-center mt-4">
-                <h1 class="font-bold text-2xl">Nama</h1>
-                <p class="text-xl">Jabatan</p>
-            </div>
-        </div>
+    <div class="grid grid-cols-5 gap-8 py-10">
+        <?php foreach($guru as $g): ?>
         <div class="flex flex-col items-center overflow-visible bg-white p-6 rounded-lg shadow-lg">
             <img class="rounded-full w-32 h-32 -mt-16" src="<?= base_url('assets/image/person.jpg') ?>" alt="Profile Photo">
             <div class="text-center mt-4">
-                <h1 class="font-bold text-2xl">Nama</h1>
-                <p class="text-xl">Jabatan</p>
+                <h1 class="font-bold text-2xl"><?= $g['nama_guru'] ?></h1>
+                <p class="text-xl"><?= $g['jabatan'] ?></p>
             </div>
         </div>
-        <div class="flex flex-col items-center overflow-visible bg-white p-6 rounded-lg shadow-lg">
-            <img class="rounded-full w-32 h-32 -mt-16" src="<?= base_url('assets/image/person.jpg') ?>" alt="Profile Photo">
-            <div class="text-center mt-4">
-                <h1 class="font-bold text-2xl">Nama</h1>
-                <p class="text-xl">Jabatan</p>
-            </div>
-        </div>
-        <div class="flex flex-col items-center overflow-visible bg-white p-6 rounded-lg shadow-lg">
-            <img class="rounded-full w-32 h-32 -mt-16" src="<?= base_url('assets/image/person.jpg') ?>" alt="Profile Photo">
-            <div class="text-center mt-4">
-                <h1 class="font-bold text-2xl">Nama</h1>
-                <p class="text-xl">Jabatan</p>
-            </div>
-        </div>
+        <?php endforeach; ?>
+    
     </div>
     </div>
 </div>
@@ -580,74 +569,28 @@
 <div class="my-16 container mx-auto">
     <h1 class="font-bold text-3xl">Galeri Kegiatan</h1>
     <div class="grid grid-cols-3 mt-10 gap-4">
-        <div class="max-w-2xl bg-white border border-gray-200 rounded-lg shadow">
+        <?php foreach ($kegiatan as $g) : ?>
+            <div class="max-w-2xl bg-white border border-gray-200 rounded-lg shadow">
             <a href="#">
                 <img class="rounded-t-lg" src="https://placehold.co/700x400" alt="Placeholder">
             </a>
             <div class="p-5">
                 <a href="#">
-                    <h5 class="mb-2 text-2xl tracking-tight text-gray-900">Title</h5>
+                    <h5 class="mb-2 text-2xl tracking-tight text-gray-900"><?= $g['nama_kegiatan'] ?></h5>
                 </a>
-                <p class="mb-3 font-normal text-gray-700">Date</p>
+                <p class="mb-3 font-normal text-gray-700">
+                <?php 
+        $tanggal_mulai = Carbon::parse($g['tanggal_mulai']);
+        $tanggal_selesai = Carbon::parse($g['tanggal_selesai']);
+
+        echo $tanggal_mulai->translatedFormat('l, j F Y') . ' - ' . $tanggal_selesai->translatedFormat('l, j F Y');
+    ?>    
+                </p>
             </div>
         </div>
-        <div class="max-w-2xl bg-white border border-gray-200 rounded-lg shadow">
-            <a href="#">
-                <img class="rounded-t-lg" src="https://placehold.co/700x400" alt="Placeholder">
-            </a>
-            <div class="p-5">
-                <a href="#">
-                    <h5 class="mb-2 text-2xl tracking-tight text-gray-900">Title</h5>
-                </a>
-                <p class="mb-3 font-normal text-gray-700">Date</p>
-            </div>
-        </div>
-        <div class="max-w-2xl bg-white border border-gray-200 rounded-lg shadow">
-            <a href="#">
-                <img class="rounded-t-lg" src="https://placehold.co/700x400" alt="Placeholder">
-            </a>
-            <div class="p-5">
-                <a href="#">
-                    <h5 class="mb-2 text-2xl tracking-tight text-gray-900">Title</h5>
-                </a>
-                <p class="mb-3 font-normal text-gray-700">Date</p>
-            </div>
-        </div>
-        <div class="max-w-2xl bg-white border border-gray-200 rounded-lg shadow">
-            <a href="#">
-                <img class="rounded-t-lg" src="https://placehold.co/700x400" alt="Placeholder">
-            </a>
-            <div class="p-5">
-                <a href="#">
-                    <h5 class="mb-2 text-2xl tracking-tight text-gray-900">Title</h5>
-                </a>
-                <p class="mb-3 font-normal text-gray-700">Date</p>
-            </div>
-        </div>
-        <div class="max-w-2xl bg-white border border-gray-200 rounded-lg shadow">
-            <a href="#">
-                <img class="rounded-t-lg" src="https://placehold.co/700x400" alt="Placeholder">
-            </a>
-            <div class="p-5">
-                <a href="#">
-                    <h5 class="mb-2 text-2xl tracking-tight text-gray-900">Title</h5>
-                </a>
-                <p class="mb-3 font-normal text-gray-700">Date</p>
-            </div>
-        </div>
-        <div class="max-w-2xl bg-white border border-gray-200 rounded-lg shadow">
-            <a href="#">
-                <img class="rounded-t-lg" src="https://placehold.co/700x400" alt="Placeholder">
-            </a>
-            <div class="p-5">
-                <a href="#">
-                    <h5 class="mb-2 text-2xl tracking-tight text-gray-900">Title</h5>
-                </a>
-                <p class="mb-3 font-normal text-gray-700">Date</p>
-            </div>
-        </div>
+        <?php endforeach; ?>
         <div class="col-span-3 mx-auto mt-10">
-        <a href="#" class="bg-[#FBC63C] text-lg px-6 py-4 rounded">
+        <a href="<?= base_url('administrasi') ?>" class="bg-[#FBC63C] text-lg px-6 py-4 rounded">
             Klik untuk Melihat Kegiatan Lainnya
         </a>
         </div>

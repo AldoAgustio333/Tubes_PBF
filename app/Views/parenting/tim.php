@@ -2,9 +2,8 @@
 
 <?= $this->section('content') ?>
 
-
-<div class="container mx-auto my-16">
-<div class="flex items-center gap-x-5">
+<div class="container mx-auto my-10">
+    <div class="flex items-center gap-x-5">
         <div class="w-full">
             <label class="input input-bordered flex items-center gap-2">
             <input type="text" class="grow" placeholder="Search" />
@@ -23,29 +22,31 @@
         <div class="dropdown dropdown-end">
             <div tabindex="0" role="button" class="btn btn-warning ">Filter Tahun</div>
             <ul tabindex="0" class="dropdown-content menu bg-yellow-300 rounded-box z-[1] w-52 p-2 shadow">
-                <li><a>2024</a></li>
-                <li><a>2023</a></li>
-                <li><a>2022</a></li>
-                <li><a>2021</a></li>
+                <li><a>Semua</a></li>
+                <li><a>Kepala</a></li>
+                <li><a>Kepala Sub Bagian Tata Usaha</a></li>
+                <li><a>Tenaga Ahli</a></li>
+                <li><a>Asesmen</a></li>
+                <li><a>Layanan Inventaris</a></li>
             </ul>
         </div>
     </div>
 
-    <div class="grid grid-cols-3 mt-10 gap-4">
-        <?php foreach ($galeri as $g) : ?>
-            <div class="max-w-2xl bg-white border border-gray-200 rounded-lg shadow">
-                <a href="#">
-                    <img class="rounded-t-lg" src="https://placehold.co/700x400" alt="Placeholder">
-                </a>
-                <div class="p-5">
-                    <a href="#">
-                        <h5 class="mb-2 text-2xl tracking-tight text-gray-900"><?= $g['nama_kegiatan'] ?></h5>
-                    </a>
-                    <p class="mb-3 font-normal text-gray-700"><?= $g['deskripsi'] ?></p>
-                </div>
+    <div class="container mx-auto">
+    <h1 class="uppercase font-bold text-3xl my-12">Tim</h1>
+    <div class="grid grid-cols-5 gap-12 py-10">
+        <?php foreach($guru as $g): ?>
+        <div class="flex flex-col items-center overflow-visible bg-yellow-300 p-6 rounded-lg shadow-lg">
+            <img class="rounded-full w-32 h-32 -mt-16" src="<?= base_url('assets/image/person.jpg') ?>" alt="Profile Photo">
+            <div class="text-center mt-4">
+                <h1 class="font-bold text-2xl"><?= $g['nama_guru'] ?></h1>
+                <p class="text-xl"><?= $g['jabatan'] ?></p>
             </div>
+        </div>
         <?php endforeach; ?>
     </div>
+    </div>
+    
 </div>
 
 <?= $this->endSection() ?>

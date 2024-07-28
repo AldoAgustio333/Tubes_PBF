@@ -6,21 +6,21 @@ class Layanan extends BaseController
 {
     public function about(): string
     {
-        return view('about');
+        return view('layanan/about');
     }
 
     public function visiMisi(): string
     {
-        return view('visi-misi');
+        return view('layanan/visi-misi');
     }
 
     public function asesmen(): string
     {
-        return view('asesmen');
+        return view('layanan/asesmen');
     }
 
     public function sopLayanan(): string
     {
-        return view('sop_layanan');
+        return view('layanan/sop_layanan');
     }
 }

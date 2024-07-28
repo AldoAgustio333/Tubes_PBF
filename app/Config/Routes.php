@@ -17,12 +17,18 @@ $routes->get('/sop-layanan', 'Layanan::sopLayanan');
 
 $routes->get('/syarat-daftar', 'Parenting::syaratDaftar');
 
-$routes->get('/tim', 'Parenting::tim');
+$routes->get('/tim', 'GuruController::index');
 
-$routes->get('/administrasi', 'Administrasi::index');
+$routes->get('/administrasi', 'GaleriController::index');
 
 $routes->get('/kelas-transisi', 'SosialMedia::kelasTransisi');
 
 $routes->get('/remedial-teaching', 'SosialMedia::remedialTeaching');
 
 $routes->get('/interverensi-okupasi', 'SosialMedia::interverensiOkupasi');
+
+$routes->get('/login', 'Parenting::login');
+
+$routes->get('/register', 'Parenting::register');
+
+$routes->get('/help', 'Home::help');

@@ -33,7 +33,7 @@
         <details>
           <summary>Parenting</summary>
           <ul class="bg-yellow-300 rounded-t-none rounded-b-lg">
-            <li class="px-2"><a>Pendaftaran Siswa</a></li>
+            <li class="px-2"><a href="<?= base_url('login')?>">Pendaftaran Siswa</a></li>
             <li class="px-2"><a href="/syarat-daftar">Syarat Pendaftaran</a></li>
             <li class="px-2"><a href="/tim">TIM</a></li>
             <li class="px-2"><a>Hubungi Kami</a></li>

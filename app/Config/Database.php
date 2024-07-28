@@ -25,9 +25,9 @@ class Database extends Config
      * @var array<string, mixed>
      */
     public array $default = [
-        'DSN'          => '',
+        'DSN'          => 'localhost:3306',
         'hostname'     => 'localhost',
-        'username'     => '',
+        'username'     => 'root',
         'password'     => '',
         'database'     => '',
         'DBDriver'     => 'MySQLi',

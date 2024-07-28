@@ -18,7 +18,7 @@
         berkaitan dengan kesehatannya dalam konteks kehidupan sehari-hari. Oleh jarena itu, 
         peserta didik yang sedang menjalani layanan ini akan mendapatkan bantuan dan latihan dalam berbagai hal, antara lain:
     </p>
-    <ul class="list-disc">
+    <ul class="list-disc list-inside">
         <li>Perawatan diri - peserta didik yang menjalani Layanan Intervensi Okupasi akan dilatih untuk merawat dirinya meskipun dalam keadaan sakit (fisik dan/atau mental). Contoh perawatan diri yang diajarkan seperti makan, mandi, dan berpakaian.</li>
         <li>Pekerjaan rumah - Untuk membantu peserta didik mencapai kondisi normal sesegera mungkin, peserta didik juga dilatih untuk menjalani aktivitas sehari-hari di dalam rumah seperti membersihkan rumah, memasak, dan berkebun.</li>
         <li>Manajemen diri - Untuk membantu peserta didik memiliki kehidupan yang produktif, Layanan Intervensi Okupasi juga mengajarkan untuk menyusun jadwal sehari-hari seperti orang-orang pada umumnya.</li>
@@ -29,7 +29,7 @@
         <li>Edukasi untuk keluarga dan pengasuh - Tugas lain dari layanan intervensi okupasi adalah untuk mengedukasi keluarga dan pengasuh bagaimana merawat dan membantu peserta didik jika dibutuhkan</li>
     </ul>
     <p class="my-4">Instrumen Penyusunan Program Okupasi Layanan Pada Penyandang Disabilitas</p>
-    <ul class="list-disc">
+    <ul class="list-disc list-inside">
         <li>Sensory profile dan laporan hasil observasi sensori profile</li>
         <li>Pemeriksaan Okupasi Layanan Pada Perkembangan Anak</li>
         <li>Perkembangan Kemampuan Motorik Halus</li>

@@ -6,16 +6,16 @@ class SosialMedia extends BaseController
 {
     public function kelasTransisi(): string
     {
-        return view('kelas_transisi');
+        return view('sosial_media/kelas_transisi');
     }
 
     public function remedialTeaching(): string
     {
-        return view('remedial_teaching');
+        return view('sosial_media/remedial_teaching');
     }
 
     public function interverensiOkupasi(): string
     {
-        return view('interverensi_okupasi');
+        return view('sosial_media/interverensi_okupasi');
     }
 }
