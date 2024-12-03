@@ -20,20 +20,25 @@ class Guru extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => 255,
             ],
-            'jabatan' => [
+            'image' => [
                 'type' => 'VARCHAR',
                 'constraint' => 255,
             ],
-            'image' => [
+            'id_jabatan' => [
+                'type' => 'INT',
+                'constraint' => 5,
+                'unsigned' => true,
+            ],
+            'posisi' => [
                 'type' => 'VARCHAR',
                 'constraint' => 255,
             ],
         ]);
 
         $this->forge->addKey('id_guru', true);
+        $this->forge->addForeignKey('id_jabatan', 'jabatan', 'id_jabatan', 'CASCADE', 'CASCADE');
         $this->forge->createTable('guru');
     }
-
     public function down()
     {
         //

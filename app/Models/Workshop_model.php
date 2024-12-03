@@ -2,45 +2,47 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use CodeIgniter\Model;
 
-class WorkshopModel extends Model
+class Workshop_model extends Model
 {
-    protected $table            = 'workshops';
-    protected $primaryKey       = 'id';
+    protected $table      = 'workshop';
+    protected $primaryKey = 'id_workshop';
+
     protected $useAutoIncrement = true;
-    protected $returnType       = 'array';
-    protected $useSoftDeletes   = false;
-    protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields = ['nama', 'tanggal', 'jam_mulai', 'jam_selesai', 'tempat', 'image'];
 
-    protected bool $allowEmptyInserts = false;
-    protected bool $updateOnlyChanged = true;
+    public function getWorkshop($id = false)
+    {
+        if ($id == false) {
+            return $this->findAll();
+        }
 
-    protected array $casts = [];
-    protected array $castHandlers = [];
+        return $this->where(['id_training' => $id])->first();
+    }
 
-    // Dates
-    protected $useTimestamps = false;
-    protected $dateFormat    = 'datetime';
-    protected $createdField  = 'created_at';
-    protected $updatedField  = 'updated_at';
-    protected $deletedField  = 'deleted_at';
+    public function geWorkshopNumRows()
+    {
+        return $this->countAll();
+    }
 
-    // Validation
-    protected $validationRules      = [];
-    protected $validationMessages   = [];
-    protected $skipValidation       = false;
-    protected $cleanValidationRules = true;
+    private function convertDates($training)
+    {
+        if (isset($training['tanggal'])) {
+            $training['tanggal'] = Carbon::parse($training['tanggal'])->translatedFormat('d F Y');
+        }
+        return $training;
+    }
 
-    // Callbacks
-    protected $allowCallbacks = true;
-    protected $beforeInsert   = [];
-    protected $afterInsert    = [];
-    protected $beforeUpdate   = [];
-    protected $afterUpdate    = [];
-    protected $beforeFind     = [];
-    protected $afterFind      = [];
-    protected $beforeDelete   = [];
-    protected $afterDelete    = [];
+    private function convertTimes($workshop)
+    {
+        if (isset($workshop['jam_mulai'])) {
+            $workshop['jam_mulai'] = Carbon::parse($workshop['jam_mulai'])->translatedFormat('H:i');
+        }
+        if (isset($workshop['jam_selesai'])) {
+            $workshop['jam_selesai'] = Carbon::parse($workshop['jam_selesai'])->translatedFormat('H:i');
+        }
+        return $workshop;
+    }
 }

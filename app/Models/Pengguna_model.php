@@ -2,45 +2,43 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use CodeIgniter\Model;
 
-class PenggunaModel extends Model
+class Pengguna_model extends Model
 {
-    protected $table            = 'penggunas';
-    protected $primaryKey       = 'id';
+    protected $table            = 'pengguna';
+    protected $primaryKey       = 'id_pengguna';
     protected $useAutoIncrement = true;
-    protected $returnType       = 'array';
-    protected $useSoftDeletes   = false;
-    protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = ['nama', 'email', 'nomor_wa', 'status'];
 
-    protected bool $allowEmptyInserts = false;
-    protected bool $updateOnlyChanged = true;
+    protected bool $allowEmptyInserts = true;
 
-    protected array $casts = [];
-    protected array $castHandlers = [];
-
-    // Dates
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
-    protected $updatedField  = 'updated_at';
-    protected $deletedField  = 'deleted_at';
 
-    // Validation
-    protected $validationRules      = [];
-    protected $validationMessages   = [];
-    protected $skipValidation       = false;
-    protected $cleanValidationRules = true;
+    public function getPengguna($id = false)
+    {
+        if ($id == false) {
+            $pengguna = $this->findAll();
+            return array_map([$this, 'convertDates'], $pengguna);
+        }
 
-    // Callbacks
-    protected $allowCallbacks = true;
-    protected $beforeInsert   = [];
-    protected $afterInsert    = [];
-    protected $beforeUpdate   = [];
-    protected $afterUpdate    = [];
-    protected $beforeFind     = [];
-    protected $afterFind      = [];
-    protected $beforeDelete   = [];
-    protected $afterDelete    = [];
+        $pengguna = $this->where(['id_pengguna' => $id])->first();
+        return $this->convertDates($pengguna);
+    }
+
+    public function getPenggunaNumRows()
+    {
+        return $this->countAll();
+    }
+
+    private function convertDates($pengguna)
+    {
+        if (isset($pengguna['created_at'])) {
+            $pengguna['created_at'] = Carbon::parse($pengguna['created_at'])->translatedFormat('d/m/Y');
+        }
+        return $pengguna;
+    }
 }

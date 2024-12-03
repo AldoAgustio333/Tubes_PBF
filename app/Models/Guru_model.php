@@ -11,17 +11,22 @@ class Guru_model extends Model
     protected $useAutoIncrement = true;
     protected $allowedFields = ['nama_guru', 'jabatan', 'image'];
 
-    public function getGuru($id = false)
+    public function getGuru($name = false)
     {
-        if ($id == false) {
-            return $this->findAll();
+        if ($name == false) {
+            return $this->join('jabatan','jabatan.id_jabatan = guru.id_jabatan')->findAll();
         }
 
-        return $this->where(['id_guru' => $id])->first();
+        return $this->join('jabatan','jabatan.id_jabatan = guru.id_jabatan')->like('nama_guru', $name)->findAll();
     }
 
     public function getFiveGuru()
     {
-        return $this->orderBy('id_guru', 'DESC')->findAll(5);
+        return $this->join('jabatan', 'jabatan.id_jabatan = guru.id_jabatan')->findAll(5);
+    }
+
+    public function getGuruByJabatan($id)
+    {
+        return $this->join('jabatan','jabatan.id_jabatan = guru.id_jabatan')->where(['guru.id_jabatan' => $id])->findAll();
     }
 }

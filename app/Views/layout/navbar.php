@@ -10,17 +10,11 @@
           <a href="/" class="block py-2 px-3 text-gray-900">Beranda</a>
         </li>
         <li>
-          <a href="#" class="block py-2 px-3 text-gray-900">Berita</a>
-        </li>
-        <li>
-          <a href="#" class="block py-2 px-3 text-gray-900">Profiler</a>
-        </li>
-        <li>
-          <a href="/administrasi" class="block py-2 px-3 text-gray-900">Administrasi</a>
+          <a href="/berita" class="block py-2 px-3 text-gray-900">Berita</a>
         </li>
         <li>
         <details>
-          <summary>Layanan</summary>
+          <summary>Profile</summary>
           <ul class="bg-yellow-300 rounded-t-none rounded-b-lg">
             <li class="px-2"><a href="/tentang-kami">Tentang Kami</a></li>
             <li class="px-2"><a href="/visi-misi">Visi dan Misi</a></li>
@@ -31,27 +25,55 @@
         </li>
         <li>
         <details>
-          <summary>Parenting</summary>
+          <summary>Administrasi</summary>
           <ul class="bg-yellow-300 rounded-t-none rounded-b-lg">
-            <li class="px-2"><a href="<?= base_url('login')?>">Pendaftaran Siswa</a></li>
+            <li class="px-2"><a href="/daftar">Pendaftaran Siswa</a></li>
+            <li class="px-2"><a href="/pelatihan">Pelatihan dan Workshop</a></li>
             <li class="px-2"><a href="/syarat-daftar">Syarat Pendaftaran</a></li>
-            <li class="px-2"><a href="/tim">TIM</a></li>
-            <li class="px-2"><a>Hubungi Kami</a></li>
-            <li class="px-2"><a>Kritik dan Saran</a></li>
+            <li class="px-2"><a href="https://wa.me/6281276560016">Hubungi Kami</a></li>
+            <li class="px-2"><a href="/tim">Tim</a></li>
+            <li class="px-2"><a href="/kritik-saran">Kritik dan Saran</a></li>
           </ul>
         </details>
         </li>
         <li>
-          <a href="#" class="block py-2 px-3 text-gray-900">Informasi</a>
+        <details>
+          <summary>Layanan</summary>
+          <ul class="bg-yellow-300 rounded-t-none rounded-b-lg">
+            <li class="px-2"><a href="/kelas-transisi">Kelas Transisi</a></li>
+            <li class="px-2"><a href="/remedial-teaching">Layanan Remedial Teaching</a></li>
+            <li class="px-2"><a href="/bina-wicara">Layanan Bina Wicara</a></li>
+            <li class="px-2"><a href="/interverensi-okupasi">Layanan Intervensi Okupasi</a></li>
+          </ul>
+        </details>
+        </li>
+        <li>
+        <details>
+          <summary>Asesmen</summary>
+          <ul class="bg-yellow-300 rounded-t-none rounded-b-lg">
+            <li class="px-2"><a>Akademik</a></li>
+            <li class="px-2"><a href="/syarat-daftar">Perkembangan</a></li>
+            <li class="px-2"><a href="/help">Help</a></li>
+          </ul>
+        </details>
+        </li>
+        <li>
+        <details>
+          <summary>Informasi</summary>
+          <ul class="bg-yellow-300 rounded-t-none rounded-b-lg">
+            <li class="px-2"><a href="/tanya-jawab">Tanya Jawab</a></li>
+            <li class="px-2"><a href="/galeri-kegiatan">Galeri Kegiatan </a></li>
+          </ul>
+        </details>
         </li>
         <li>
         <details>
           <summary>Sosial Media</summary>
           <ul class="bg-yellow-300 rounded-t-none rounded-b-lg">
-            <li class="px-2"><a href="/kelas-transisi">Kelas Transisi</a></li>
-            <li class="px-2"><a href="/remedial-teaching">Layanan Remedial Teaching</a></li>
-            <li class="px-2"><a>Layanan Bina Wicara</a></li>
-            <li class="px-2"><a href="/interverensi-okupasi">Layanan Intervensi Okupasi</a></li>
+            <li class="px-2"><a href="https://www.instagram.com/ldpi_padang/">Instagram</a></li>
+            <li class="px-2"><a href="https://web.facebook.com/UPTD.LayananDisabilitasdanPendidikanInklusif">Facebook</a></li>
+            <li class="px-2"><a href="https://www.tiktok.com/@uptd.ldpi_kotapadang?is_from_webapp=1&sender_device=pc">TikTok</a></li>
+            <li class="px-2"><a href="https://www.youtube.com/@ldpidisdikpadang9289">Youtube</a></li>
           </ul>
         </details>
         </li>

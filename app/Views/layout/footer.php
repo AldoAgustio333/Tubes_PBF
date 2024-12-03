@@ -29,12 +29,10 @@
       <div>
         <h5 class="mb-2 font-medium">Info Kami</h5>
         <ul class="">
-            <li><a href="#">Tentang Kami</a></li>
-            <li><a href="#">Visi</a></li>
-            <li><a href="#">Misi</a></li>
-            <li><a href="#">SOP Pelayanan Assesment</a></li>
-            <li><a href="#">SOP Layanan Interversi</a></li>
-            <li><a href="#">Terpadu</a></li>
+            <li><a href="/tentang-kami">Tentang Kami</a></li>
+            <li><a href="/visi-misi">Visi Misi</a></li>
+            <li><a href="/asesmen">SOP Pelayanan Assesment</a></li>
+            <li><a href="/sop-layanan">SOP Layanan Interversi Terpadu</a></li>
         </ul>
       </div>
       <div class="text-end">
