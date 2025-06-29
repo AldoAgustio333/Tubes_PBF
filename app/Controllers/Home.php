@@ -9,10 +9,12 @@ class Home extends BaseController
     public function index(): string
     {
         $data_guru = new Guru_model();
-        $data['guru'] = $data_guru->getGuru();
+        $data['guru'] = $data_guru->getGuru(); 
 
         $data_kegiatan = new Galeri_model();
-        $data['kegiatan'] = $data_kegiatan->getFiveKegiatan();
+
+        $data['kegiatan'] = []; 
+        
         return view('home', $data);
     }
 

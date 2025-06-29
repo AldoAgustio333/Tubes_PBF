@@ -44,7 +44,7 @@ Carbon::setLocale('id');
         <dialog id="my_modal_2" class="modal">
             <div class="modal-box w-11/12 max-w-5xl">
                 <h3 class="text-lg font-bold text-center">Tambah Workshops</h3>
-                <form class="grid text-center gap-y-3 my-5 mx-8" action="<?= base_url('dashboard/workshop') ?>" method="post" enctype="multipart/form-data">
+                <form class="grid text-center gap-y-3 my-5 mx-8" action="<?= base_url('dashboard/workshop') ?>" method="post" enctype="multipart/form-data" onsubmit="return validateForm(this)">
                     <?= csrf_field() ?>
 
                     <input type="text" placeholder="Nama Workshop" class="input input-bordered w-full" id="nama" name="nama" value="<?= old('nama') ?>" required/>
@@ -66,11 +66,11 @@ Carbon::setLocale('id');
             <dialog id="edit_modal_<?= $t['id_workshop'] ?>" class="modal">
                 <div class="modal-box w-11/12 max-w-5xl">
                     <h3 class="text-lg font-bold text-center">Edit Data Workshop</h3>
-                    <form class="grid text-center gap-y-3 my-5 mx-8" action="<?= base_url('/dashboard/workshop/' . $t['id_workshop']) ?>" method="post" >
+                    <form class="grid text-center gap-y-3 my-5 mx-8" action="<?= base_url('/dashboard/workshop/' . $t['id_workshop']) ?>" method="post" onsubmit="return validateForm(this)">
                         <?= csrf_field() ?>
-                        <input type="text" placeholder="Nama Training" class="input input-bordered w-full" id="nama" name="nama" value="<?= $t['nama'] ?>" required/>
+                        <input type="text" placeholder="Nama Workshop" class="input input-bordered w-full" id="nama" name="nama" value="<?= $t['nama'] ?>" required/>
                         <input type="text" placeholder="Lokasi" class="input input-bordered w-full" id="lokasi" name="tempat" value="<?= $t['tempat'] ?>" required/>
-                        <input type="date" placeholder="Tanggal" class="input input-bordered w-full" id="tanggal" name="tanggal" value="<?= $t['tanggal'] ?>"/>
+                        <input type="date" placeholder="Tanggal" class="input input-bordered w-full" id="tanggal" name="tanggal" value="<?= $t['tanggal'] ?>" required/>
                         <input type="time" placeholder="Waktu Mulai" class="input input-bordered w-full" id="jam_mulai" name="jam_mulai" value="<?= $t['jam_mulai'] ?>" required/>
                         <input type="time" placeholder="Waktu Selesai" class="input input-bordered w-full" id="jam_selesai" name="jam_selesai" value="<?= $t['jam_selesai'] ?>" required/>
                         <button class="btn btn-warning" type="submit">Submit</button>
@@ -99,7 +99,7 @@ Carbon::setLocale('id');
                             echo \Carbon\Carbon::parse($w['tanggal'])->translatedFormat('d F Y');
                             ?>
                         </p>
-                        <button onclick="edit_modal_<?= $t['id_workshop'] ?>.showModal()">
+                        <button onclick="edit_modal_<?= $w['id_workshop'] ?>.showModal()">
                             <svg  xmlns="http://www.w3.org/2000/svg"
                                   width="24"
                                   height="24"
@@ -182,6 +182,24 @@ Carbon::setLocale('id');
                 });
             }
         }
-    </script>
 
+        function validateForm(form) {
+            const today = new Date().toISOString().split('T')[0];
+            const date = form.querySelector('input[name="tanggal"]').value;
+            const jamMulai = form.querySelector('input[name="jam_mulai"]').value;
+            const jamSelesai = form.querySelector('input[name="jam_selesai"]').value;
+
+            if (date < today) {
+                alert('Tanggal tidak boleh sebelum hari ini.');
+                return false;
+            }
+
+            if (jamSelesai <= jamMulai) {
+                alert('Jam selesai tidak boleh lebih awal atau sama dengan jam mulai.');
+                return false;
+            }
+
+            return true;
+        }
+    </script>
 <?= $this->endSection() ?>

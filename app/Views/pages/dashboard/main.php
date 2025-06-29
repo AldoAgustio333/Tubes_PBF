@@ -9,28 +9,28 @@
             </div>
             <figure>
                 <img
-                        src="<?= base_url('assets/image/disability.png') ?>"
-                        class="h-32"
-                        alt="image" />
+                    src="<?= base_url('assets/image/disability.png') ?>"
+                    class="h-32"
+                    alt="image" />
             </figure>
         </div>
         <div class="grid grid-rows-2 mt-6">
             <div class="indicator">
                 <span class="indicator-item badge badge-error"><?= $jumlah_pengguna ?> </span>
                 <button class="btn" onclick="my_modal_1.showModal()">
-                    <svg  xmlns="http://www.w3.org/2000/svg"
+                    <svg  xmlns="http://www.w3.org/2000/svg"
                           width="24"
                           height="24"
                           viewBox="0 0 24 24"
                           fill="currentColor"
                     ><path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                         <path d="M18 3a4 4 0 0 1 4 4v8a4 4 0 0 1 -4 4h-4.724l-4.762 2.857a1
-                    1 0 0 1 -1.508 -.743l-.006 -.114v-2h-1a4 4 0 0 1 -3.995 -3.8l-.005
-                    -.2v-8a4 4 0 0 1 4 -4zm-4 9h-6a1 1 0 0 0 0 2h6a1 1 0 0 0 0 -2m2 -4h-8a1
-                    1 0 1 0 0 2h8a1 1 0 0 0 0 -2" /></svg></button>
+                        1 0 0 1 -1.508 -.743l-.006 -.114v-2h-1a4 4 0 0 1 -3.995 -3.8l-.005
+                        -.2v-8a4 4 0 0 1 4 -4zm-4 9h-6a1 1 0 0 0 0 2h6a1 1 0 0 0 0 -2m2 -4h-8a1
+                        1 0 1 0 0 2h8a1 1 0 0 0 0 -2" /></svg></button>
             </div>
             <button class="btn btn-warning rounded-full" onclick="my_modal_4.showModal()">
-                <svg  xmlns="http://www.w3.org/2000/svg"
+                <svg  xmlns="http://www.w3.org/2000/svg"
                       width="24"
                       height="24"
                       viewBox="0 0 24 24"
@@ -49,37 +49,40 @@
 
     <dialog id="my_modal_1" class="modal">
         <div class="modal-box w-11/12 max-w-5xl">
-            <h3 class="text-lg font-bold">Message</h3>
+            <h3 class="text-lg font-bold">Daftar Pengguna</h3>
             <div class="overflow-x-auto">
                 <table class="table">
-                    <!-- head -->
                     <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama Lengkap</th>
-                        <th>Date</th>
-                        <th>Email</th>
-                        <th>Nomor WA Aktif</th>
-                        <th>Status</th>
-                    </tr>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>Tanggal Dibuat</th>
+                            <th>Email</th>
+                            <th>Nomor WA</th>
+                            <th>Status</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <?php foreach ($pengguna as $p): ?>
-                    <tr>
-                        <th> <?= $nomor++; ?></th>
-                        <td><?= $p['nama'] ?></td>
-                        <td><?= $p['created_at'] ?></td>
-                        <td><?= $p['email'] ?></td>
-                        <td><?= $p['nomor_wa'] ?></td>
-                        <td>
-                            <?php if ($p['status'] === 'aktif'): ?>
-                                <div class="bg-[#16C098] bg-opacity-30 border border-[#00B087] text-center text-[#008767] p-1 rounded-lg">Active</div>
-                            <?php elseif ($p['status'] === 'tidak aktif'): ?>
-                                <div class="bg-[#FFC5C5] border border-[#DF0404] text-center text-[#DF0404] p-1 rounded-lg">Inactive</div>
-                            <?php endif; ?>
-                        </td>
-                    </tr>
-                    <?php endforeach; ?>
+                        <?php $nomorModal = 1; ?>
+                        <?php if (isset($pager) && $pager->getCurrentPage('group1') > 0): ?>
+                            <?php $nomorModal = ($pager->getCurrentPage('group1') - 1) * $pager->getPerPage('group1') + 1; ?>
+                        <?php endif; ?>
+                        <?php foreach ($pengguna as $p): ?>
+                        <tr>
+                            <th> <?= $nomorModal++; ?></th>
+                            <td><?= $p['nama'] ?></td>
+                            <td><?= $p['created_at'] ?></td>
+                            <td><?= $p['email'] ?></td>
+                            <td><?= $p['nomor_wa'] ?></td>
+                            <td>
+                                <?php if ($p['status'] === 'aktif'): ?>
+                                    <div class="bg-[#16C098] bg-opacity-30 border border-[#00B087] text-center text-[#008767] p-1 rounded-lg">Active</div>
+                                <?php elseif ($p['status'] === 'tidak aktif'): ?>
+                                    <div class="bg-[#FFC5C5] border border-[#DF0404] text-center text-[#DF0404] p-1 rounded-lg">Inactive</div>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
@@ -104,9 +107,9 @@
                 </select>
                 <button class="btn btn-warning" type="submit">Submit</button>
             </form>
-                <form method="dialog">
-                    <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-                </form>
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
         </div>
     </dialog>
 
@@ -141,7 +144,7 @@
             </div>
             <figure>
                 <img
-                        src="<?= base_url('assets/image/pelatihan.png') ?>" alt="images" class="me-3"/>
+                    src="<?= base_url('assets/image/pelatihan.png') ?>" alt="images" class="me-3"/>
             </figure>
         </div>
         <div class="card card-side bg-gradient-to-l from-[#3071BD] to-[#76E3E3] shadow-xl text-white">
@@ -151,24 +154,23 @@
             </div>
             <figure>
                 <img
-                        src="<?= base_url('assets/image/calendar.png') ?>" alt="images" class="me-3"/>
+                    src="<?= base_url('assets/image/calendar.png') ?>" alt="images" class="me-3"/>
             </figure>
         </div>
         <div class="card card-side bg-gradient-to-l from-[#BD3030] to-[#B976E3] shadow-xl text-white">
             <div class="card-body">
                 <h2 class="text-xl font-semibold">Jumlah Pengguna</h2>
-                <h2 class="card-title text-4xl"><?= $jumlah_pengguna < 10 ? '0' . $jumlah_pengguna : $training ?></h2>
+                <h2 class="card-title text-4xl"><?= $jumlah_pengguna < 10 ? '0' . $jumlah_pengguna : $jumlah_pengguna ?></h2>
             </div>
             <figure>
                 <img
-                        src="<?= base_url('assets/image/group.png') ?>" alt="images" class="me-3"/>
+                    src="<?= base_url('assets/image/group.png') ?>" alt="images" class="me-3"/>
             </figure>
         </div>
     </div>
 
     <div class="overflow-x-auto">
         <table class="table">
-            <!-- head -->
             <thead class="bg-slate-200">
             <tr>
                 <th>
@@ -186,7 +188,9 @@
             </tr>
             </thead>
             <tbody>
-
+            <?php
+            $nomorTabel = $nomor;
+            ?>
             <?php foreach($pengguna as $p): ?>
             <tr>
                 <th>
@@ -195,8 +199,7 @@
                     </label>
                 </th>
                 <th>
-
-                    <?= $nomor++; ?>
+                    <?= $nomorTabel++; ?>
                 </th>
                 <td>
                     <div><?= $p['nama'] ?></div>
@@ -218,7 +221,7 @@
                 <td>
                     <div class="flex">
                         <button onclick="edit_modal_<?= $p['id_pengguna'] ?>.showModal()">
-                            <svg  xmlns="http://www.w3.org/2000/svg"
+                            <svg  xmlns="http://www.w3.org/2000/svg"
                                   width="24"
                                   height="24"
                                   viewBox="0 0 24 24"
@@ -233,7 +236,7 @@
                                 <path d="M16 5l3 3" /></svg>
                         </button>
                         <button onclick="deletePengguna(<?= $p['id_pengguna'] ?>)">
-                            <svg  xmlns="http://www.w3.org/2000/svg"
+                            <svg  xmlns="http://www.w3.org/2000/svg"
                                   width="24"
                                   height="24"
                                   viewBox="0 0 24 24"
@@ -252,6 +255,7 @@
                 </td>
             </tr>
             <?php endforeach; ?>
+            </tbody>
         </table>
     </div>
     <?= $pager->links('group1','pagination') ?>
@@ -273,7 +277,6 @@
             });
         }
     }
-
 </script>
 
 <?= $this->endSection() ?>

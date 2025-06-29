@@ -5,23 +5,26 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\Pengguna_model;
 use App\Models\Training_model;
-use CodeIgniter\HTTP\ResponseInterface;
 
 class PenggunaController extends BaseController
 {
+    protected $pengguna;
+    protected $training;
+    protected $validation;
 
     public function __construct()
     {
-        $this->training = new Training_model();
         $this->pengguna = new Pengguna_model();
+        $this->training = new Training_model();
+        $this->validation = \Config\Services::validation();
     }
 
     public function index()
     {
         $data['training'] = $this->training->getTrainingNumRows();
         $data['pengguna'] = $this->pengguna->getPengguna();
-
         $data['jumlah_pengguna'] = $this->pengguna->getPenggunaNumRows();
+
         if (session()->get('email')) {
             return view('pages/dashboard/main', $data);
         } else {
@@ -31,46 +34,43 @@ class PenggunaController extends BaseController
 
     public function create()
     {
-        $validation = \Config\Services::validation();
-        $validation->setRules([
+        $this->validation->setRules([
             "nama" => "required",
-            "email" => "required",
-            "nomor_wa" => "required",
-            "status" => "required",
+            "email" => "required|valid_email|is_unique[pengguna.email]",
+            "nomor_wa" => "required|numeric",
+            "status" => "required|in_list[aktif,tidak aktif]",
         ]);
 
-        if ($validation->withRequest($this->request)->run()) {
-                $this->pengguna->insert([
-                    "nama" => $this->request->getPost('nama'),
-                    "email" => $this->request->getPost('email'),
-                    "nomor_wa" => $this->request->getPost('nomor_wa'),
-                    "status" => $this->request->getPost('status'),
-                    "created_at" => date('Y-m-d H:i:s')
-                ]);
-                return redirect()->to('dashboard')->with('success', 'Pengguna added successfully.');
-            }
-            else {
-                return redirect()->back()->with('error', 'There was a problem adding the pengguna.');
-            }
+        if ($this->validation->withRequest($this->request)->run()) {
+            $this->pengguna->insert([
+                "nama" => $this->request->getPost('nama'),
+                "email" => $this->request->getPost('email'),
+                "nomor_wa" => $this->request->getPost('nomor_wa'),
+                "status" => $this->request->getPost('status'),
+                "created_at" => date('Y-m-d H:i:s')
+            ]);
+            return redirect()->to('dashboard')->with('success', 'Pengguna added successfully.');
+        } else {
+            return redirect()->back()->withInput()->with('error', $this->validation->listErrors());
+        }
     }
 
     public function getPenggunaData($id)
     {
-        $data = $this->pengguna->getPengguna($id);
+        $data = $this->pengguna->find($id);
         return $this->response->setJSON($data);
     }
 
     public function update($id)
     {
-        $validation = \Config\Services::validation();
-        $validation->setRules([
+        $this->validation->setRules([
             "nama" => "required",
-            "email" => "required",
-            "nomor_wa" => "required",
-            "status" => "required",
+            "email" => "required|valid_email|is_unique[pengguna.email,id_pengguna," . $id . "]",
+            "nomor_wa" => "required|numeric",
+            "status" => "required|in_list[aktif,tidak aktif]",
         ]);
 
-        if ($validation->withRequest($this->request)->run()) {
+        if ($this->validation->withRequest($this->request)->run()) {
             $this->pengguna->update($id, [
                 "nama" => $this->request->getPost('nama'),
                 "email" => $this->request->getPost('email'),
@@ -80,13 +80,17 @@ class PenggunaController extends BaseController
             ]);
             return redirect()->to('/dashboard')->with('success', 'Pengguna updated successfully.');
         } else {
-            return redirect()->back()->with('error', 'There was a problem updating the pengguna.');
+            return redirect()->back()->withInput()->with('error', $this->validation->listErrors());
         }
     }
 
     public function delete($id)
     {
-        $this->pengguna->delete($id);
-        return redirect()->to('/dashboard')->with('success', 'Pengguna deleted successfully.');
+        if ($this->request->isAJAX()) {
+            $this->pengguna->delete($id);
+            return $this->response->setStatusCode(200)->setJSON(['message' => 'Pengguna deleted successfully.']);
+        } else {
+            return redirect()->back()->with('error', 'Invalid request.');
+        }
     }
 }

@@ -7,11 +7,15 @@ use CodeIgniter\Model;
 
 class Workshop_model extends Model
 {
-    protected $table      = 'workshop';
-    protected $primaryKey = 'id_workshop';
-
+    protected $table            = 'workshop';
+    protected $primaryKey       = 'id_workshop'; 
     protected $useAutoIncrement = true;
-    protected $allowedFields = ['nama', 'tanggal', 'jam_mulai', 'jam_selesai', 'tempat', 'image'];
+    protected $useTimestamps = true;
+    protected $dateFormat    = 'datetime';
+    protected $createdField  = 'created_at';
+    protected $updatedField  = 'updated_at';
+    protected $deletedField  = 'deleted_at'; 
+    protected $allowedFields = ['nama', 'tanggal', 'jam_mulai', 'jam_selesai', 'tempat', 'image', 'created_at', 'updated_at'];
 
     public function getWorkshop($id = false)
     {
@@ -19,20 +23,20 @@ class Workshop_model extends Model
             return $this->findAll();
         }
 
-        return $this->where(['id_training' => $id])->first();
+        return $this->where([$this->primaryKey => $id])->first();
     }
 
-    public function geWorkshopNumRows()
+    public function getWorkshopNumRows()
     {
-        return $this->countAll();
+        return $this->countAllResults(); 
     }
 
-    private function convertDates($training)
+    private function convertDates($workshop)
     {
-        if (isset($training['tanggal'])) {
-            $training['tanggal'] = Carbon::parse($training['tanggal'])->translatedFormat('d F Y');
+        if (isset($workshop['tanggal'])) {
+            $workshop['tanggal'] = Carbon::parse($workshop['tanggal'])->translatedFormat('d F Y');
         }
-        return $training;
+        return $workshop;
     }
 
     private function convertTimes($workshop)

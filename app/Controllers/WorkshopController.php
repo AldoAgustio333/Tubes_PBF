@@ -8,8 +8,7 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 class WorkshopController extends BaseController
 {
-
-    protected  $workshop;
+    protected $workshop;
 
     public function __construct()
     {
@@ -32,24 +31,22 @@ class WorkshopController extends BaseController
         $validation->setRules([
             "nama" => "required",
             "tempat" => "required",
-            "tanggal" => "required",
+            "tanggal" => "required|valid_date[tanggal, Y-m-d]|greater_than_today",
             "jam_mulai" => "required",
-            "jam_selesai" => "required",
+            "jam_selesai" => "required|greater_than[jam_mulai]",
             "image" => "uploaded[image]|is_image[image]|mime_in[image,image/jpg,image/jpeg,image/png]|max_size[image,2048]",
         ]);
 
         if ($validation->withRequest($this->request)->run()) {
-            // Get the image file
+            
             $image = $this->request->getFile('image');
 
             if ($image->isValid() && !$image->hasMoved()) {
-                // Generate a new file name
+                
                 $imageName = $image->getRandomName();
 
-                // Move the file to the public/assets/image/training directory
                 $image->move(ROOTPATH . 'public/assets/image/workshop', $imageName);
 
-                // Insert data into the database
                 $this->workshop->insert([
                     "nama" => $this->request->getPost('nama'),
                     "tempat" => $this->request->getPost('tempat'),
@@ -74,19 +71,24 @@ class WorkshopController extends BaseController
         $validation->setRules([
             "nama" => "required",
             "tempat" => "required",
-            "tanggal" => "required",
+            "tanggal" => "required|valid_date[tanggal, Y-m-d]|greater_than_today",
             "jam_mulai" => "required",
-            "jam_selesai" => "required",
+            "jam_selesai" => "required|greater_than[jam_mulai]",
         ]);
-        // Insert data into the database
-        $this->workshop->update($id, [
-            "nama" => $this->request->getPost('nama'),
-            "tempat" => $this->request->getPost('tempat'),
-            "tanggal" => $this->request->getPost('tanggal'),
-            "jam_mulai" => $this->request->getPost('jam_mulai'),
-            "jam_selesai" => $this->request->getPost('jam_selesai'),
-        ]);
-        return redirect()->to('/dashboard/workshop')->with('success', 'Data berhasil diubah.');
+
+        if ($validation->withRequest($this->request)->run()) {
+            
+            $this->workshop->update($id, [
+                "nama" => $this->request->getPost('nama'),
+                "tempat" => $this->request->getPost('tempat'),
+                "tanggal" => $this->request->getPost('tanggal'),
+                "jam_mulai" => $this->request->getPost('jam_mulai'),
+                "jam_selesai" => $this->request->getPost('jam_selesai'),
+            ]);
+            return redirect()->to('/dashboard/workshop')->with('success', 'Data berhasil diubah.');
+        } else {
+            return redirect()->back()->withInput()->with('validation', $validation);
+        }
     }
 
     public function delete($id)

@@ -12,14 +12,12 @@ use CodeIgniter\Debug\Toolbar\Collectors\Timers;
 use CodeIgniter\Debug\Toolbar\Collectors\Views;
 
 /**
- * --------------------------------------------------------------------------
- * Debug Toolbar
- * --------------------------------------------------------------------------
+ * Konfigurasi Debug Toolbar CodeIgniter 4.
  *
- * The Debug Toolbar provides a way to see information about the performance
- * and state of your application during that page display. By default it will
- * NOT be displayed under production environments, and will only display if
- * `CI_DEBUG` is true, since if it's not, there's not much to display anyway.
+ * Debug Toolbar menyediakan cara untuk melihat informasi tentang performa
+ * dan status aplikasi Anda selama tampilan halaman. Secara default tidak akan
+ * ditampilkan di lingkungan produksi, dan hanya akan ditampilkan jika
+ * `CI_DEBUG` bernilai true.
  */
 class Toolbar extends BaseConfig
 {
@@ -28,8 +26,8 @@ class Toolbar extends BaseConfig
      * Toolbar Collectors
      * --------------------------------------------------------------------------
      *
-     * List of toolbar collectors that will be called when Debug Toolbar
-     * fires up and collects data from.
+     * Daftar kolektor toolbar yang akan dipanggil saat Debug Toolbar
+     * diaktifkan dan mengumpulkan data.
      *
      * @var list<class-string>
      */
@@ -38,7 +36,7 @@ class Toolbar extends BaseConfig
         Database::class,
         Logs::class,
         Views::class,
-        // \CodeIgniter\Debug\Toolbar\Collectors\Cache::class,
+        // \CodeIgniter\Debug\Toolbar\Collectors\Cache::class, // Komentar ini tetap seperti aslinya
         Files::class,
         Routes::class,
         Events::class,
@@ -49,8 +47,9 @@ class Toolbar extends BaseConfig
      * Collect Var Data
      * --------------------------------------------------------------------------
      *
-     * If set to false var data from the views will not be collected. Useful to
-     * avoid high memory usage when there are lots of data passed to the view.
+     * Jika disetel ke false, data variabel dari view tidak akan dikumpulkan.
+     * Berguna untuk menghindari penggunaan memori yang tinggi saat banyak data
+     * diteruskan ke view.
      */
     public bool $collectVarData = true;
 
@@ -59,9 +58,10 @@ class Toolbar extends BaseConfig
      * Max History
      * --------------------------------------------------------------------------
      *
-     * `$maxHistory` sets a limit on the number of past requests that are stored,
-     * helping to conserve file space used to store them. You can set it to
-     * 0 (zero) to not have any history stored, or -1 for unlimited history.
+     * `$maxHistory` mengatur batas jumlah permintaan sebelumnya yang disimpan,
+     * membantu menghemat ruang file yang digunakan untuk menyimpannya. Anda dapat
+     * mengaturnya ke 0 (nol) agar tidak ada riwayat yang disimpan, atau -1
+     * untuk riwayat tanpa batas.
      */
     public int $maxHistory = 20;
 
@@ -70,8 +70,8 @@ class Toolbar extends BaseConfig
      * Toolbar Views Path
      * --------------------------------------------------------------------------
      *
-     * The full path to the the views that are used by the toolbar.
-     * This MUST have a trailing slash.
+     * Jalur lengkap ke view yang digunakan oleh toolbar.
+     * Ini HARUS diakhiri dengan garis miring ('/').
      */
     public string $viewsPath = SYSTEMPATH . 'Debug/Toolbar/Views/';
 
@@ -80,12 +80,12 @@ class Toolbar extends BaseConfig
      * Max Queries
      * --------------------------------------------------------------------------
      *
-     * If the Database Collector is enabled, it will log every query that the
-     * the system generates so they can be displayed on the toolbar's timeline
-     * and in the query log. This can lead to memory issues in some instances
-     * with hundreds of queries.
+     * Jika Kolektor Database diaktifkan, ia akan mencatat setiap query yang
+     * dihasilkan oleh sistem agar dapat ditampilkan di timeline toolbar
+     * dan di log query. Ini dapat menyebabkan masalah memori dalam beberapa kasus
+     * dengan ratusan query.
      *
-     * `$maxQueries` defines the maximum amount of queries that will be stored.
+     * `$maxQueries` mendefinisikan jumlah maksimum query yang akan disimpan.
      */
     public int $maxQueries = 100;
 
@@ -94,11 +94,12 @@ class Toolbar extends BaseConfig
      * Watched Directories
      * --------------------------------------------------------------------------
      *
-     * Contains an array of directories that will be watched for changes and
-     * used to determine if the hot-reload feature should reload the page or not.
-     * We restrict the values to keep performance as high as possible.
+     * Berisi array direktori yang akan dipantau untuk perubahan dan
+     * digunakan untuk menentukan apakah fitur hot-reload harus memuat ulang
+     * halaman atau tidak. Kami membatasi nilainya untuk menjaga performa
+     * setinggi mungkin.
      *
-     * NOTE: The ROOTPATH will be prepended to all values.
+     * CATATAN: ROOTPATH akan ditambahkan ke semua nilai.
      *
      * @var list<string>
      */
@@ -111,12 +112,26 @@ class Toolbar extends BaseConfig
      * Watched File Extensions
      * --------------------------------------------------------------------------
      *
-     * Contains an array of file extensions that will be watched for changes and
-     * used to determine if the hot-reload feature should reload the page or not.
+     * Berisi array ekstensi file yang akan dipantau untuk perubahan dan
+     * digunakan untuk menentukan apakah fitur hot-reload harus memuat ulang
+     * halaman atau tidak.
      *
      * @var list<string>
      */
     public array $watchedExtensions = [
         'php', 'css', 'js', 'html', 'svg', 'json', 'env',
     ];
+
+    /**
+     * --------------------------------------------------------------------------
+     * Abaikan AJAX
+     * --------------------------------------------------------------------------
+     *
+     * Jika disetel ke true, Debug Toolbar tidak akan mencoba menyisipkan dirinya
+     * ke dalam respons untuk permintaan AJAX. Ini penting untuk mencegah
+     * respons JSON yang rusak.
+     *
+     * @var bool
+     */
+    public bool $ignoreAJAX = true; // UBAH NILAI INI MENJADI TRUE
 }

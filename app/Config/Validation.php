@@ -41,4 +41,24 @@ class Validation extends BaseConfig
     // --------------------------------------------------------------------
     // Rules
     // --------------------------------------------------------------------
+    
+    public $training = [
+        'nama' => 'required',
+        'tempat' => 'required',
+        'tanggal' => 'required|valid_date[tanggal, Y-m-d]|greater_than_today',
+        'jam_mulai' => 'required',
+        'jam_selesai' => 'required|greater_than[jam_mulai]',
+    ];
+
+    // Custom validation rules
+    public function greater_than_today(string $str, string $fields, array $data): bool
+    {
+        return $str >= date('Y-m-d');
+    }
+
+    public function greater_than(string $str, string $fields, array $data): bool
+    {
+        $compareField = $data[$fields] ?? null;
+        return $str > $compareField;
+    }
 }

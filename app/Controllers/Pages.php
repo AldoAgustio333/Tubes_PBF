@@ -2,20 +2,28 @@
 
 namespace App\Controllers;
 
-use App\Controllers\BaseController;
 use App\Models\Galeri_model;
 use App\Models\Guru_model;
-use CodeIgniter\HTTP\ResponseInterface;
+use App\Models\PertanyaanModel;
 
 class Pages extends BaseController
 {
+    protected $pertanyaanModel;
+
+    public function __construct()
+    {
+        $this->pertanyaanModel = new PertanyaanModel();
+    }
+
     public function index()
     {
         $data_guru = new Guru_model();
-        $data['guru'] = $data_guru->getFiveGuru();
+        
+        $data['guru'] = []; 
 
         $data_kegiatan = new Galeri_model();
-        $data['kegiatan'] = $data_kegiatan->getKegiatan();
+        
+        $data['kegiatan'] = []; 
 
         return view('pages/home', $data);
     }
@@ -94,7 +102,8 @@ class Pages extends BaseController
 
     public function tanyaJawab(): string
     {
-        return view('pages/tanya_jawab');
+        $data['tanya_jawab'] = $this->pertanyaanModel->where('jawaban IS NOT NULL')->orderBy('created_at', 'DESC')->findAll();
+        return view('pages/tanya_jawab', $data);
     }
 
     public function galeriKegiatan(): string

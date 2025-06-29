@@ -10,13 +10,12 @@ class Pengguna_model extends Model
     protected $table            = 'pengguna';
     protected $primaryKey       = 'id_pengguna';
     protected $useAutoIncrement = true;
-    protected $allowedFields    = ['nama', 'email', 'nomor_wa', 'status'];
-
-    protected bool $allowEmptyInserts = true;
+    protected $allowedFields    = ['nama', 'email', 'nomor_wa', 'status', 'created_at', 'updated_at'];
 
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
+    protected $updatedField  = 'updated_at';
 
     public function getPengguna($id = false)
     {

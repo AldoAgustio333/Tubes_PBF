@@ -7,32 +7,46 @@ use App\Models\Pengguna_model;
 use App\Models\Training_model;
 use App\Models\User_model;
 use App\Models\Workshop_model;
-use CodeIgniter\HTTP\ResponseInterface;
+use App\Models\Kelas_model;
 
 class DashboardController extends BaseController
 {
+    protected $training;
+    protected $pengguna;
+    protected $user;
+    protected $workshop;
+    protected $kelasModel;
+
     public function __construct()
     {
         $this->training = new Training_model();
         $this->pengguna = new Pengguna_model();
         $this->user = new User_model();
         $this->workshop = new Workshop_model();
+        $this->kelasModel = new Kelas_model();
     }
+
     public function index()
     {
         $data = [
             'training' => $this->training->getTrainingNumRows(),
-            'jadwal' => $this->training->getTrainingNumRows() + $this->workshop->geWorkshopNumRows(),
-            'pengguna' => $this->pengguna->paginate(5, 'group1'),
+            'jadwal' => $this->training->getTrainingNumRows() + $this->workshop->getWorkshopNumRows() + $this->kelasModel->getKelasNumRows(), 
+            'pengguna' => $this->pengguna->paginate(5, 'group1'), 
             'jumlah_pengguna' => $this->pengguna->getPenggunaNumRows(),
             'pager' => $this->pengguna->pager,
-            'nomor' => nomor($this->request->getVar('page_group1'), 5)
+            'nomor' => $this->nomor($this->request->getVar('page_group1'), 5),
+            'jumlah_kelas' => $this->kelasModel->getKelasNumRows(),
         ];
+        
         if (session()->get('email')) {
             return view('pages/dashboard/main', $data);
         } else {
             return redirect()->to(base_url('/dashboard/login'));
         }
+    }
+
+    private function nomor($page, $perPage) {
+        return ($page ? $page - 1 : 0) * $perPage + 1;
     }
 
     public function login()
@@ -49,6 +63,7 @@ class DashboardController extends BaseController
         $email = $this->request->getPost('email');
         $password = $this->request->getPost('password');
         $data = $this->user->where('email', $email)->first();
+        
         if ($data) {
             if (password_verify($password, $data['password'])) {
                 $session = [

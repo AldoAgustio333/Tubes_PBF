@@ -12,17 +12,15 @@ use CodeIgniter\Filters\InvalidChars;
 use CodeIgniter\Filters\PageCache;
 use CodeIgniter\Filters\PerformanceMetrics;
 use CodeIgniter\Filters\SecureHeaders;
+// Import filter kustom yang baru dibuat
+use App\Filters\NoToolbarFilter;
 
 class Filters extends BaseFilters
 {
     /**
-     * Configures aliases for Filter classes to
-     * make reading things nicer and simpler.
+     * Mengkonfigurasi alias untuk kelas Filter.
      *
      * @var array<string, class-string|list<class-string>>
-     *
-     * [filter_name => classname]
-     * or [filter_name => [classname1, classname2, ...]]
      */
     public array $aliases = [
         'csrf'          => CSRF::class,
@@ -34,36 +32,28 @@ class Filters extends BaseFilters
         'forcehttps'    => ForceHTTPS::class,
         'pagecache'     => PageCache::class,
         'performance'   => PerformanceMetrics::class,
+        'noToolbar'     => NoToolbarFilter::class, // ALIAS UNTUK FILTER KUSTOM ANDA
     ];
 
     /**
-     * List of special required filters.
-     *
-     * The filters listed here are special. They are applied before and after
-     * other kinds of filters, and always applied even if a route does not exist.
-     *
-     * Filters set by default provide framework functionality. If removed,
-     * those functions will no longer work.
-     *
-     * @see https://codeigniter.com/user_guide/incoming/filters.html#provided-filters
+     * Daftar filter khusus yang diperlukan.
      *
      * @var array{before: list<string>, after: list<string>}
      */
     public array $required = [
         'before' => [
-            'forcehttps', // Force Global Secure Requests
-            'pagecache',  // Web Page Caching
+            'forcehttps', // Memaksa Permintaan Aman Global (HTTPS)
+            'pagecache',  // Caching Halaman Web
         ],
         'after' => [
-            'pagecache',   // Web Page Caching
-            'performance', // Performance Metrics
-            'toolbar',     // Debug Toolbar
+            'pagecache',   // Caching Halaman Web
+            'performance', // Metrik Performa
+            'toolbar',     // Debug Toolbar akan tetap ada di sini
         ],
     ];
 
     /**
-     * List of filter aliases that are always
-     * applied before and after every request.
+     * Daftar alias filter yang selalu diterapkan pada setiap permintaan.
      *
      * @var array<string, array<string, array<string, string>>>|array<string, list<string>>
      */
@@ -72,6 +62,7 @@ class Filters extends BaseFilters
             // 'honeypot',
             // 'csrf',
             // 'invalidchars',
+            // 'noToolbar', // MENJALANKAN FILTER KUSTOM ANDA PADA SETIAP REQUEST (SEBELUM CONTROLLER)
         ],
         'after' => [
             // 'honeypot',
@@ -80,26 +71,14 @@ class Filters extends BaseFilters
     ];
 
     /**
-     * List of filter aliases that works on a
-     * particular HTTP method (GET, POST, etc.).
-     *
-     * Example:
-     * 'POST' => ['foo', 'bar']
-     *
-     * If you use this, you should disable auto-routing because auto-routing
-     * permits any HTTP method to access a controller. Accessing the controller
-     * with a method you don't expect could bypass the filter.
+     * Daftar alias filter yang berfungsi pada metode HTTP tertentu.
      *
      * @var array<string, list<string>>
      */
     public array $methods = [];
 
     /**
-     * List of filter aliases that should run on any
-     * before or after URI patterns.
-     *
-     * Example:
-     * 'isLoggedIn' => ['before' => ['account/*', 'profiles/*']]
+     * Daftar alias filter yang harus dijalankan pada pola URI tertentu.
      *
      * @var array<string, array<string, list<string>>>
      */

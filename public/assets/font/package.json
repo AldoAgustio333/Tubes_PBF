@@ -35,5 +35,8 @@
   ],
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "@material-design-icons/font": "file:"
   }
 }

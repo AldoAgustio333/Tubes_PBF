@@ -1,14 +1,16 @@
 <?php
+
 namespace App\Models;
 
-use Carbon\Carbon;
+use Carbon\Carbon; // Pastikan Carbon terinstal atau dihapus jika tidak digunakan
 use CodeIgniter\Model;
 
+// Jika Carbon tidak digunakan, hapus baris berikut
 Carbon::setLocale('id');
 
 class Galeri_model extends Model 
 {
-    protected $table      = 'galeri';
+    protected $table        = 'galeri';
     protected $primaryKey = 'id_galeri';
 
     protected $useAutoIncrement = true;
@@ -39,6 +41,7 @@ class Galeri_model extends Model
 
     private function convertDates($kegiatan)
     {
+        // Pastikan Carbon digunakan di sini, jika tidak, ganti dengan fungsi tanggal PHP biasa
         if (isset($kegiatan['tanggal_mulai'])) {
             $kegiatan['tanggal_mulai'] = Carbon::parse($kegiatan['tanggal_mulai'])->translatedFormat('l, d F Y');
         }

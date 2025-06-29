@@ -69,7 +69,7 @@ x<?= $this->extend('layout/dashboard_layout') ?>
                         <?= csrf_field() ?>
                         <input type="text" placeholder="Nama Training" class="input input-bordered w-full" id="nama" name="nama" value="<?= $t['nama'] ?>" required/>
                         <input type="text" placeholder="Lokasi" class="input input-bordered w-full" id="lokasi" name="tempat" value="<?= $t['tempat'] ?>" required/>
-                        <input type="date" placeholder="Tanggal" class="input input-bordered w-full" id="tanggal" name="tanggal" value="<?= $t['tanggal'] ?>"/>
+                        <input type="date" placeholder="Tanggal" class="input input-bordered w-full" id="tanggal" name="tanggal" value="<?= $t['tanggal'] ?>" required/>
                         <input type="time" placeholder="Waktu Mulai" class="input input-bordered w-full" id="jam_mulai" name="jam_mulai" value="<?= $t['jam_mulai'] ?>" required/>
                         <input type="time" placeholder="Waktu Selesai" class="input input-bordered w-full" id="jam_selesai" name="jam_selesai" value="<?= $t['jam_selesai'] ?>" required/>
                         <button class="btn btn-warning" type="submit">Submit</button>
@@ -184,6 +184,40 @@ x<?= $this->extend('layout/dashboard_layout') ?>
             });
         }
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const today = new Date().toISOString().split('T')[0];
+
+        const addForm = document.querySelector('form[action="<?= base_url('dashboard/training') ?>"]');
+        const editForms = document.querySelectorAll('form[action^="<?= base_url('/dashboard/training/') ?>"]');
+
+        addForm.addEventListener('submit', function(event) {
+            validateForm(event, this);
+        });
+
+        editForms.forEach(form => {
+            form.addEventListener('submit', function(event) {
+                validateForm(event, this);
+            });
+        });
+
+        function validateForm(event, form) {
+            const dateInput = form.querySelector('input[name="tanggal"]');
+            const startTimeInput = form.querySelector('input[name="jam_mulai"]');
+            const endTimeInput = form.querySelector('input[name="jam_selesai"]');
+
+            if (dateInput.value < today) {
+                alert('Tanggal tidak boleh sebelum hari ini.');
+                event.preventDefault();
+                return;
+            }
+
+            if (endTimeInput.value <= startTimeInput.value) {
+                alert('Jam selesai tidak boleh lebih awal atau sama dengan jam mulai.');
+                event.preventDefault();
+                return;
+            }
+        }
+    });
 </script>
 <?= $this->endSection() ?>
-
